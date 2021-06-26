@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hola {{ usuario.nombre }}</h1>
+    <a href="{% url 'agregar' idUsuario=request.session.id_usuario %}">Agregar citas</a>
+    <a href="{% url 'logout' %}">Cerrar sesion</a>
+
+
+    <h2>Tus citas</h2>
+    <table>
+        <tr>
+            <td>Tareas</td>
+            <td>Fecha</td>
+            <td>Estado</td>
+            <td>Accion</td>
+        </tr>
+        {% for cita in citas %}
+        <tr>
+            <td>{{ cita.tarea }}</td>
+            <td>{{ cita.fecha }}</td>
+            <td>{{ cita.estado }}</td>
+            {% if cita.estado == "Pendiente" %}
+            <td><a href="{% url 'editar' idCita=cita.id %}">editar</a>|<a href="{% url 'eliminar' idCita=cita.id %}">borrar</a></td>
+            {% else %}
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Citas pasadas</h2>
+    <tr>
+        <td>Tareas</td><td>Fecha</td>
+    </tr>
+    <!-- {% for cita in citas %}
+    {% if cita.fecha %}
+    <tr><td>{{ cita.tarea }}</td>
+        <td>{{ cita.fecha }}</td>
+    </tr>
+    {% else %}
+    {% endif %}
+    {% endfor %} -->
+    <!-- {{ hoy }} -->
+
+    
+    
+
+
+</body>
+</html>

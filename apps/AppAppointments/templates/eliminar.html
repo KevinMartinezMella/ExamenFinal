@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="eliminar">
+        <h1 id="titulo_eliminar_post" >¿Estas seguro que deseas eliminar la publicación?</h1>
+        <form class="yesno" action="" method="POST">
+            {% csrf_token %}
+            <input class="seleccionar" type="submit" value="Si">
+        </form>
+        
+        <form class="yesno" action="{% url 'citas' idUsuario=request.session.id_usuario %}">
+        <input id="no" class="seleccionar" type="submit" value="No">
+        </form>
+    </div>
+</body>
+</html>

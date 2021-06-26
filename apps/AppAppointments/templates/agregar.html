@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if messages %}
+            {% for message in messages %}
+            <div id="mensajealerta1" class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <a href="{% url 'citas' idUsuario=request.session.id_usuario %}"">Volver</a>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><label>Tarea:</label></td>
+                <td><input name="tarea" type="text"></td>
+            </tr>
+            <tr>
+                <td><label>Fecha:</label></td>
+                <td><input name="fecha" type="date"></td>
+            </tr>
+            <tr>
+                <td><label>Estado:</label></td>
+                <td><select name="estado">
+                      <option value="Perdida">Perdida</option>
+                      <option value="Pendiente" selected>Pendiente</option>
+                      <option value="Hecho">Hecho</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Agregar Cita">
+    </form>
+</body>
+</html>
