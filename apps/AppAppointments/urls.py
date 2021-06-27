@@ -10,5 +10,5 @@ urlpatterns =[
     path("citas/<int:idUsuario>",views.citas, name="citas"),
     path("citas/agregar/<int:idUsuario>",views.agregar, name="agregar"),
     path("citas/editar/<int:idCita>",views.editar, name="editar"),
-    path("citas/eliminar<int:idCita>",views.eliminar,name="eliminar")
+    path("citas/eliminar/<int:idCita>",views.eliminar,name="eliminar")
 ]

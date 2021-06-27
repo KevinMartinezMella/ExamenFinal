@@ -1,55 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <title>Citas</title>
 </head>
+
 <body>
-    <h1>Hola {{ usuario.nombre }}</h1>
-    <a href="{% url 'agregar' idUsuario=request.session.id_usuario %}">Agregar citas</a>
-    <a href="{% url 'logout' %}">Cerrar sesion</a>
-
-
-    <h2>Tus citas</h2>
-    <table>
-        <tr>
-            <td>Tareas</td>
-            <td>Fecha</td>
-            <td>Estado</td>
-            <td>Accion</td>
-        </tr>
-        {% for cita in citas %}
-        <tr>
-            <td>{{ cita.tarea }}</td>
-            <td>{{ cita.fecha }}</td>
-            <td>{{ cita.estado }}</td>
-            {% if cita.estado == "Pendiente" %}
-            <td><a href="{% url 'editar' idCita=cita.id %}">editar</a>|<a href="{% url 'eliminar' idCita=cita.id %}">borrar</a></td>
-            {% else %}
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div id="mensajealerta1" class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                    <strong>{{ message }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h1 class="bg-dark white">Hola {{ usuario.nombre }}</h1>
+        <a class="inline" href="{% url 'agregar' idUsuario=request.session.id_usuario %}">Agregar citas</a> |
+        <a class="inline" href="{% url 'logout' %}">Cerrar sesion</a>
+        <br>
+        <br>
+        <h2>Tus citas</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col thead">Tareas</th>
+                    <th scope="col thead">Fecha</th>
+                    <th scope="col thead">Estado</th>
+                    <th scope="col thead">Accion</th>
+                </tr>
+            </thead>
+            {% for cita in citas %}
+            {% if usuario_id == cita.usuario_id %}
+            {% if cita.fecha >= hoy %}
+            <tbody>
+                <tr>
+                    <td>{{ cita.tarea }}</td>
+                    <td>{{ cita.fecha }}</td>
+                    <td>{{ cita.estado }}</td>
+                    {% if cita.estado == "Pendiente" %}
+                    <td><a href="{% url 'editar' idCita=cita.id %}">Editar</a> | <a
+                            href="{% url 'eliminar' idCita=cita.id %}">Borrar</a></td>
+                    {% else %}
+                    {% endif %}
+                </tr>
+            </tbody>
             {% endif %}
-        </tr>
-        {% endfor %}
-    </table>
-
-    <h2>Citas pasadas</h2>
-    <tr>
-        <td>Tareas</td><td>Fecha</td>
-    </tr>
-    <!-- {% for cita in citas %}
-    {% if cita.fecha %}
-    <tr><td>{{ cita.tarea }}</td>
-        <td>{{ cita.fecha }}</td>
-    </tr>
-    {% else %}
-    {% endif %}
-    {% endfor %} -->
-    <!-- {{ hoy }} -->
-
-    
-    
-
-
+            {% endif %}
+            {% endfor %}
+        
+            
+        </table>
+        <br>
+        <br>
+        <h2>Citas pasadas o realizadas</h2>
+        <div id="tabla_pasada">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col thead">Tareas</th>
+                        <th scope="col thead">Fecha</th>
+                    </tr>
+                </thead>
+                {% for cita in citas %}
+                {% if usuario_id == cita.usuario_id %}
+                {% if cita.fecha < hoy or cita.estado != "Pendiente" %}
+                <tbody>
+                    <tr>
+                        <td>{{ cita.tarea }}</td><td>{{ cita.fecha }}</td>
+                    </tr>
+                </tbody>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -8,7 +8,7 @@ from django.db.models.deletion import CASCADE
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+-]+@[a-zA-Z0-9._-]+.[a-zA-Z]+$')
 
-# Create your models here.
+
 class UsuarioManager(models.Manager):
     def validacionesBasicas(self, usuario):
 
@@ -44,14 +44,14 @@ class CitaManager(models.Manager):
         today = datetime.now()
 
         
-        validarLongitud("tarea", cita["tarea"], errors, 2, 20,)
+        validarLongitud("tarea", cita["tarea"], errors, 2, 50,)
         validarLongitud("fecha", cita["fecha"], errors, 10, 50,)
-        validarLongitud("estado", cita["estado"], errors, 8, 40,)
+
         if cita['fecha'] == '':
             errors["fecha"] = "Porfavor selecciona una fecha"
 
         elif cita["fecha"] <= str(today):
-            errors["fecha"] = "Tu cita debe no debe ser una fecha pasada"
+            errors["fecha"] = "Tu cita no debe ser una fecha pasada"
         
 
         return errors
@@ -66,6 +66,9 @@ class Cita(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = CitaManager()
+
+    class Meta:
+        ordering = ["fecha"]
 
 
 

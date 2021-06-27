@@ -17,19 +17,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <title>Eliminar Citas</title>
+    <title>Bienvenido</title>
 </head>
 <body>
-    <div id="borrar" class="container margintop">
-        <h1 id="titulo_eliminar_post" >¿Estas seguro que deseas eliminar la publicación?</h1>
-        <form class="inline" action="" method="POST">
-            {% csrf_token %}
-            <button id="marginleft" class="btn btn-dark" type="submit">Si</button>
-        </form>
-        
-        <form class="inline" action="{% url 'citas' idUsuario=request.session.id_usuario %}">
-        <button class="btn btn-dark" type="submit">No</button>
-        </form>
+    <div>
+        <h1 class="bg-dark white">Success! Bienvenido! {{ usuario_actual }}</h1>
+        <a href="{% url 'citas' idUsuario=request.session.id_usuario %}">Ver tus citas</a> |
+        <a href="{% url 'logout' %}">Cerrar sesion</a>
     </div>
 </body>
 </html>

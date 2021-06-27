@@ -18,67 +18,67 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Inicio</title>
 </head>
 
 <body>
     <div class="container">
-        <div id="bienvenida">
-            <h1> Bienvenido !</h1>
-        </div>
-        <div id="formularios">
-            {% if messages %}
-            {% for message in messages %}
+        {% if messages %}
+        {% for message in messages %}
             <div id="mensajealerta1" class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
                 <strong>{{message}}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            {% endfor %}
-            {% endif %}
-            <div id="registro" class="inline bordes">
-                <form action="{% url 'registro' %}" method="POST">
-                    {% csrf_token %}
-                    <h3 class="ini_reg">Registro</h3>
-                    <table>
-                        <tr>
-                            <td><label>Nombre:</label></td>
-                            <td><input class="input" type="text" placeholder="Escribe tu nombre" name="nombre"></td>
-                        </tr>
-                        <tr>
-                            <td><label>Email:</label></td>
-                            <td><input class="input" type="email" placeholder="Escribe tu email" name="email"></td>
-                        </tr>
-                        <tr>
-                            <td><label>Contraseña:</label></td>
-                            <td><input class="input" type="password" placeholder="Escribe tu contraseña"
-                                    name="password"></td>
-                        </tr>
-                        <tr>
-                            <td><label>Confirmar contraseña:</label></td>
-                            <td><input class="input" type="password" placeholder="Confirma tu contraseña"
-                                    name="confirmPassword"></td>
-                        </tr>
-                    </table>
-                    <input type="submit" class="submit" value="Registrarse">
-                </form>
+        {% endfor %}
+    {% endif %}
+        <div id="formularios">
+            <div id="registro" class="inline">
+                <h3 class="ini_reg bg-dark">Registro</h3>
+                <div class="bordes">
+                    <form action="{% url 'registro' %}" method="POST">
+                        {% csrf_token %}
+                        <table>
+                            <tr>
+                                <td><label>Nombre:</label></td>
+                                <td><input class="input" type="text" placeholder="Escribe tu nombre" name="nombre"></td>
+                            </tr>
+                            <tr>
+                                <td><label>Email:</label></td>
+                                <td><input class="input" type="email" placeholder="Escribe tu email" name="email"></td>
+                            </tr>
+                            <tr>
+                                <td><label>Contraseña:</label></td>
+                                <td><input class="input" type="password" placeholder="Escribe tu contraseña"
+                                        name="password"></td>
+                            </tr>
+                            <tr>
+                                <td><label>Confirmar contraseña:</label></td>
+                                <td><input class="input" type="password" placeholder="Confirma tu contraseña"
+                                        name="confirmPassword"></td>
+                            </tr>
+                        </table>
+                        <button type="submit" class="btn btn-dark submit">Registrarse</button>
+                    </form>
+                </div>
             </div>
-            <div id="inicio_sesion" class="inline bordes">
-                <form action="{% url 'login' %}" method="POST">
-                    {% csrf_token %}
-                    <h3 class="ini_reg">Iniciar Sesion</h3>
-                    <table>
-                        <tr>
-                            <td><label>Email:</label></td>
-                            <td><input class="input" type="email" placeholder="Escribe tu nombre" name="email"></td>
-                        </tr>
-                        <tr>
-                            <td><label>Contraseña:</label></td>
-                            <td><input class="input" type="password" placeholder="Escribe tu alias" name="password">
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="submit" class="submit" value="Iniciar Sesion">
-                </form>
+            <div id="inicio_sesion" class="inline">
+                <h3 class="ini_reg bg-dark">Iniciar Sesion</h3>
+                <div class="bordes">
+                    <form action="{% url 'login' %}" method="POST">
+                        {% csrf_token %}
+                        <table>
+                            <tr>
+                                <td><label>Email:</label></td>
+                                <td><input class="input" type="email" placeholder="Escribe tu nombre" name="email"></td>
+                            </tr>
+                            <tr>
+                                <td><label>Contraseña:</label></td>
+                                <td><input class="input" type="password" placeholder="Escribe tu alias" name="password">
+                                </td>
+                            </tr>
+                        </table>
+                        <button type="submit" class="btn btn-dark submit">Iniciar sesion</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
